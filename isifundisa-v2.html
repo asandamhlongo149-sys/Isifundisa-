@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isifundisa — by Nkanyezi Mhlongo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4ff;
+  --white: #ffffff;
+  --navy: #0d1f4e;
+  --blue: #1a56db;
+  --blue-mid: #2563eb;
+  --blue-light: #dbeafe;
+  --blue-pale: #eff6ff;
+  --accent: #f59e0b;
+  --green: #059669;
+  --red: #dc2626;
+  --muted: #6b7280;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --text: #0f172a;
+  --shadow: 0 2px 16px rgba(13,31,78,0.10);
+  --shadow-lg: 0 8px 32px rgba(13,31,78,0.14);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+
+/* BG PATTERN */
+body::before {
+  content:'';
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background-image: radial-gradient(circle at 20% 10%, rgba(26,86,219,0.07) 0%, transparent 50%),
+    radial-gradient(circle at 80% 90%, rgba(13,31,78,0.05) 0%, transparent 50%);
+  pointer-events:none; z-index:0;
+}
+
+/* HEADER */
+header {
+  position:sticky; top:0; z-index:200;
+  background: var(--navy);
+  padding: 0 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  height:58px;
+  box-shadow: 0 2px 12px rgba(13,31,78,0.3);
+}
+.logo-wrap { display:flex; align-items:center; gap:10px; }
+.logo-icon {
+  width:34px; height:34px; border-radius:10px;
+  background: linear-gradient(135deg, var(--blue), #60a5fa);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; font-weight:900; color:white;
+  font-family:'Playfair Display',serif;
+}
+.logo-text { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:white; }
+.logo-sub { font-size:0.6rem; color:rgba(255,255,255,0.5); font-family:'Plus Jakarta Sans',sans-serif; display:block; margin-top:-2px; }
+
+.lang-toggle {
+  background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
+  border-radius:20px; padding:3px;
+  display:flex; gap:2px;
+}
+.lang-btn {
+  padding:4px 11px; border-radius:16px; border:none;
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.73rem; font-weight:600;
+  cursor:pointer; transition:all 0.2s;
+  background:transparent; color:rgba(255,255,255,0.6);
+}
+.lang-btn.active { background:white; color:var(--navy); }
+
+/* NAV */
+nav {
+  display:flex; overflow-x:auto; gap:4px;
+  padding:10px 14px; border-bottom:1px solid var(--border);
+  background:white; scrollbar-width:none;
+  position:sticky; top:58px; z-index:199;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+nav::-webkit-scrollbar { display:none; }
+.nav-btn {
+  white-space:nowrap; padding:7px 15px;
+  border-radius:20px; border:1.5px solid var(--border);
+  background:transparent; color:var(--muted);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.8rem; font-weight:600;
+  cursor:pointer; transition:all 0.22s; display:flex; align-items:center; gap:5px;
+}
+.nav-btn:hover { border-color:var(--blue); color:var(--blue); }
+.nav-btn.active { background:var(--blue); color:white; border-color:var(--blue); }
+
+/* MAIN */
+main { padding:20px 14px 40px; max-width:680px; margin:0 auto; position:relative; z-index:1; }
+.section { display:none; animation:fadeUp 0.3s ease; }
+.section.active { display:block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* CARDS */
+.card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:18px; padding:18px;
+  box-shadow:var(--shadow); margin-bottom:14px;
+}
+
+/* HOME */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, #1e3a8a 100%);
+  border-radius:22px; padding:28px 20px; margin-bottom:16px;
+  position:relative; overflow:hidden;
+}
+.hero::after {
+  content:''; position:absolute; top:-40px; right:-40px;
+  width:180px; height:180px; border-radius:50%;
+  background:rgba(255,255,255,0.04); pointer-events:none;
+}
+.hero-tag {
+  display:inline-block; background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2); border-radius:20px;
+  padding:4px 12px; font-size:0.72rem; color:rgba(255,255,255,0.8);
+  margin-bottom:14px; font-weight:500;
+}
+.hero h1 { font-size:1.95rem; color:white; line-height:1.2; margin-bottom:8px; }
+.hero h1 span { color:#93c5fd; }
+.hero p { font-size:0.85rem; color:rgba(255,255,255,0.65); font-family:'Plus Jakarta Sans',sans-serif; margin-bottom:18px; }
+.hero-creator {
+  display:flex; align-items:center; gap:8px;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.creator-badge {
+  background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px; padding:5px 12px;
+  font-size:0.75rem; color:white; font-weight:600;
+}
+.creator-badge span { color:#fbbf24; }
+
+.stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+.stat-box {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; padding:14px 10px; text-align:center;
+  box-shadow:var(--shadow);
+}
+.stat-num { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; color:var(--blue); }
+.stat-lbl { font-size:0.68rem; color:var(--muted); margin-top:2px; font-weight:500; }
+
+.feature-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+.feat-card {
+  background:var(--card); border:1.5px solid var(--border);
+  border-radius:16px; padding:16px 13px; cursor:pointer;
+  transition:all 0.25s; position:relative; overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.feat-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--fc, var(--blue));
+}
+.feat-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:var(--fc, var(--blue)); }
+.feat-card .fi { font-size:1.5rem; margin-bottom:8px; }
+.feat-card h3 { font-size:0.85rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:3px; }
+.feat-card p { font-size:0.72rem; color:var(--muted); line-height:1.4; }
+
+/* SECTION TITLES */
+.sec-title { font-size:1.3rem; font-weight:900; margin-bottom:3px; color:var(--navy); }
+.sec-sub { font-size:0.82rem; color:var(--muted); margin-bottom:18px; }
+
+/* MODULES */
+.mod-card { background:var(--card); border:1.5px solid var(--border); border-radius:16px; margin-bottom:12px; overflow:hidden; box-shadow:var(--shadow); }
+.mod-header { padding:15px 16px; display:flex; align-items:center; gap:12px; cursor:pointer; transition:background 0.2s; }
+.mod-header:hover { background:var(--blue-pale); }
+.mod-badge {
+  background:var(--blue); color:white;
+  border-radius:8px; padding:4px 10px;
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.72rem; font-weight:700;
+  white-space:nowrap;
+}
+.mod-info { flex:1; }
+.mod-info h3 { font-size:0.9rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:2px; }
+.mod-info p { font-size:0.75rem; color:var(--muted); }
+.mod-arrow { color:var(--muted); font-size:0.9rem; transition:transform 0.3s; }
+.mod-body { display:none; padding:0 16px 16px; border-top:1px solid var(--border); }
+.mod-body.open { display:block; animation:fadeUp 0.2s ease; }
+.exam-pill {
+  display:inline-block; margin-top:12px; margin-bottom:8px;
+  background:#fef3c7; border:1px solid #f59e0b; border-radius:8px;
+  padding:3px 10px; font-size:0.7rem; color:#92400e; font-weight:600;
+}
+.mod-body ul { list-style:none; }
+.mod-body ul li {
+  padding:8px 0; border-bottom:1px solid var(--border);
+  font-size:0.82rem; color:#374151; display:flex; gap:8px; align-items:flex-start;
+  line-height:1.5;
+}
+.mod-body ul li:last-child { border-bottom:none; }
+.mod-body ul li::before { content:'→'; color:var(--blue); flex-shrink:0; font-weight:700; }
+
+/* QUIZ */
+.quiz-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:18px; }
+.mod-pick {
+  padding:12px; border-radius:12px; border:1.5px solid var(--border);
+  background:var(--white); color:var(--text); cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.8rem; font-weight:600;
+  transition:all 0.2s; text-align:center;
+}
+.mod-pick.sel { border-color:var(--blue); background:var(--blue-light); color:var(--blue); }
+.start-btn {
+  width:100%; padding:14px; border-radius:13px; border:none;
+  background:var(--blue); color:white;
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; font-weight:700;
+  cursor:pointer; transition:all 0.2s;
+}
+.start-btn:hover { background:#1d4ed8; transform:translateY(-1px); box-shadow:0 6px 20px rgba(26,86,219,0.3); }
+.start-btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+.q-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:22px; box-shadow:var(--shadow); }
+.q-prog { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.prog-bar { flex:1; height:5px; background:var(--blue-light); border-radius:5px; overflow:hidden; }
+.prog-fill { height:100%; background:var(--blue); border-radius:5px; transition:width 0.4s; }
+.q-num { font-size:0.75rem; color:var(--muted); font-weight:600; }
+.q-text { font-family:'Plus Jakarta Sans',sans-serif; font-size:1rem; font-weight:700; margin-bottom:18px; line-height:1.5; color:var(--navy); }
+.opts { display:flex; flex-direction:column; gap:9px; }
+.opt {
+  padding:13px 15px; border-radius:12px; border:1.5px solid var(--border);
+  background:var(--bg); color:var(--text); cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.85rem; text-align:left;
+  transition:all 0.2s; font-weight:500;
+}
+.opt:hover:not(:disabled) { border-color:var(--blue); background:var(--blue-pale); }
+.opt.correct { border-color:var(--green); background:#d1fae5; color:#065f46; }
+.opt.wrong { border-color:var(--red); background:#fee2e2; color:#991b1b; }
+.feedback {
+  margin-top:13px; padding:12px 14px; border-radius:10px;
+  font-size:0.82rem; line-height:1.5; font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--blue-pale); border:1px solid var(--blue-light); color:#1e40af;
+}
+.next-btn {
+  margin-top:12px; width:100%; padding:12px; border-radius:12px; border:none;
+  background:var(--navy); color:white;
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.92rem; font-weight:700;
+  cursor:pointer; transition:all 0.2s;
+}
+.next-btn:hover { background:var(--blue); }
+.result-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:30px 20px; text-align:center; box-shadow:var(--shadow-lg); }
+.r-score { font-family:'Playfair Display',serif; font-size:3.5rem; font-weight:900; color:var(--blue); }
+.r-msg { color:var(--muted); margin:8px 0 6px; font-size:0.88rem; }
+.r-pct { font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--navy); margin-bottom:20px; }
+.retry-btn { background:var(--blue-pale); border:1.5px solid var(--blue); color:var(--blue); padding:11px 24px; border-radius:12px; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; transition:all 0.2s; }
+.retry-btn:hover { background:var(--blue); color:white; }
+
+/* FLASHCARDS */
+.fc-card {
+  background: linear-gradient(135deg, var(--navy), #1e3a8a);
+  border-radius:20px; padding:32px 20px; text-align:center;
+  min-height:190px; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:all 0.3s; margin-bottom:14px;
+  box-shadow:var(--shadow-lg);
+}
+.fc-card:hover { transform:translateY(-2px); box-shadow:0 12px 36px rgba(13,31,78,0.2); }
+.fc-lbl { font-size:0.68rem; text-transform:uppercase; letter-spacing:1.5px; color:rgba(255,255,255,0.5); margin-bottom:12px; font-weight:600; }
+.fc-q { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:white; line-height:1.5; }
+.fc-a { font-size:0.88rem; color:#93c5fd; margin-top:12px; line-height:1.6; display:none; font-family:'Plus Jakarta Sans',sans-serif; }
+.fc-nav { display:flex; gap:10px; }
+.fc-btn { flex:1; padding:12px; border-radius:12px; border:1.5px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif; font-size:0.83rem; font-weight:600; transition:all 0.2s; }
+.fc-btn:hover { border-color:var(--blue); color:var(--blue); }
+.fc-count { flex:0; padding:12px 16px; color:var(--muted); font-size:0.8rem; font-weight:600; background:var(--card); border:1.5px solid var(--border); border-radius:12px; }
+
+/* AI TUTOR */
+.tutor-wrap {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:20px; overflow:hidden; box-shadow:var(--shadow-lg);
+}
+.tutor-head {
+  background:linear-gradient(135deg,var(--navy),#1e3a8a);
+  padding:16px 18px; display:flex; align-items:center; gap:12px;
+}
+.tutor-avatar {
+  width:42px; height:42px; border-radius:50%;
+  background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.3);
+  display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+}
+.tutor-info h3 { font-family:'Plus Jakarta Sans',sans-serif; font-size:0.95rem; font-weight:700; color:white; }
+.tutor-info p { font-size:0.72rem; color:rgba(255,255,255,0.6); font-family:'Plus Jakarta Sans',sans-serif; }
+.online-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; display:inline-block; margin-right:5px; animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.chat-area {
+  height:340px; overflow-y:auto; padding:16px;
+  display:flex; flex-direction:column; gap:12px;
+  background:var(--bg);
+}
+.chat-area::-webkit-scrollbar { width:4px; }
+.chat-area::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+.msg { max-width:85%; display:flex; flex-direction:column; gap:4px; }
+.msg.user { align-self:flex-end; align-items:flex-end; }
+.msg.bot { align-self:flex-start; align-items:flex-start; }
+.msg-bubble {
+  padding:11px 14px; border-radius:16px;
+  font-size:0.83rem; line-height:1.6;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.msg.user .msg-bubble { background:var(--blue); color:white; border-bottom-right-radius:4px; }
+.msg.bot .msg-bubble { background:white; color:var(--text); border:1px solid var(--border); border-bottom-left-radius:4px; }
+.msg-time { font-size:0.65rem; color:var(--muted); }
+
+.typing-indicator { display:none; align-self:flex-start; }
+.typing-indicator.show { display:flex; }
+.typing-bubble { background:white; border:1px solid var(--border); border-radius:16px; border-bottom-left-radius:4px; padding:11px 16px; display:flex; gap:5px; align-items:center; }
+.dot { width:7px; height:7px; border-radius:50%; background:var(--muted); animation:bounce 1.2s infinite; }
+.dot:nth-child(2) { animation-delay:0.2s; }
+.dot:nth-child(3) { animation-delay:0.4s; }
+@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+.chat-input-wrap { padding:12px 14px; border-top:1px solid var(--border); display:flex; gap:8px; background:white; }
+.chat-input {
+  flex:1; padding:10px 14px; border-radius:12px; border:1.5px solid var(--border);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:0.85rem;
+  outline:none; background:var(--bg); color:var(--text); transition:border 0.2s;
+}
+.chat-input:focus { border-color:var(--blue); background:white; }
+.send-btn {
+  padding:10px 16px; border-radius:12px; border:none;
+  background:var(--blue); color:white; cursor:pointer;
+  font-size:1rem; transition:all 0.2s;
+}
+.send-btn:hover { background:#1d4ed8; }
+.send-btn:disabled { opacity:0.5; cursor:not-allowed; }
+
+.quick-prompts { padding:10px 14px; border-top:1px solid var(--border); display:flex; gap:6px; overflow-x:auto; background:white; }
+.quick-prompts::-webkit-scrollbar { display:none; }
+.qp { padding:6px 12px; border-radius:20px; border:1px solid var(--blue-light); background:var(--blue-pale); color:var(--blue); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.72rem; font-weight:600; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+.qp:hover { background:var(--blue); color:white; }
+
+/* CYBER */
+.roadmap-wrap { position:relative; }
+.rm-item { display:flex; gap:14px; margin-bottom:18px; position:relative; }
+.rm-item::before { content:''; position:absolute; left:19px; top:42px; width:2px; height:calc(100% + 2px); background:var(--border); }
+.rm-item:last-child::before { display:none; }
+.rm-circle {
+  width:40px; height:40px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:0.82rem;
+  flex-shrink:0; position:relative; z-index:1;
+}
+.rm-circle.done { background:#d1fae5; border:2px solid var(--green); color:var(--green); }
+.rm-circle.now { background:var(--blue-light); border:2px solid var(--blue); color:var(--blue); }
+.rm-circle.lock { background:var(--bg); border:2px solid var(--border); color:var(--muted); }
+.rm-content { flex:1; background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:13px; box-shadow:var(--shadow); }
+.rm-content h3 { font-size:0.9rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:4px; }
+.rm-content p { font-size:0.78rem; color:var(--muted); line-height:1.5; }
+.rm-tag { display:inline-block; margin-top:7px; padding:3px 10px; border-radius:6px; font-size:0.68rem; font-weight:700; }
+.tag-free { background:#d1fae5; color:#065f46; }
+.tag-paid { background:#fef3c7; color:#92400e; }
+.tag-now { background:var(--blue-light); color:#1e40af; }
+
+.topic-card { background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:14px; margin-bottom:10px; box-shadow:var(--shadow); transition:all 0.2s; cursor:default; }
+.topic-card:hover { border-color:var(--blue); transform:translateY(-1px); }
+.topic-card h4 { font-size:0.88rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:4px; color:var(--navy); }
+.topic-card p { font-size:0.78rem; color:var(--muted); line-height:1.4; }
+
+/* HARVARD */
+.ref-sec { margin-bottom:22px; }
+.ref-sec h3 { font-size:0.95rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--blue-light); color:var(--navy); }
+.ref-box { background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:15px; margin-bottom:10px; box-shadow:var(--shadow); }
+.ref-box h4 { font-size:0.82rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:8px; color:var(--blue); }
+.ref-tpl { background:var(--blue-pale); border:1px solid var(--blue-light); border-radius:8px; padding:10px 12px; font-family:'Courier New',monospace; font-size:0.76rem; color:var(--navy); line-height:1.7; margin-bottom:8px; }
+.ref-eg { font-size:0.76rem; color:var(--muted); line-height:1.6; font-style:italic; }
+.rules { list-style:none; }
+.rules li { font-size:0.81rem; color:#374151; padding:6px 0; border-bottom:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; line-height:1.5; }
+.rules li:last-child { border-bottom:none; }
+.rules li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
+
+/* CAREER */
+.career-hero { background:linear-gradient(135deg,var(--navy),#1e3a8a); border-radius:20px; padding:22px; margin-bottom:18px; }
+.career-hero h2 { font-size:1.2rem; color:white; margin-bottom:6px; }
+.career-hero p { font-size:0.82rem; color:rgba(255,255,255,0.65); font-family:'Plus Jakarta Sans',sans-serif; }
+.tl { position:relative; }
+.tl-item { display:flex; gap:13px; margin-bottom:14px; }
+.tl-dot { width:14px; height:14px; border-radius:50%; margin-top:4px; flex-shrink:0; border:2px solid var(--border); background:var(--bg); }
+.tl-dot.done { background:var(--green); border-color:var(--green); }
+.tl-dot.now { background:var(--blue); border-color:var(--blue); box-shadow:0 0 8px rgba(26,86,219,0.4); }
+.tl-info h4 { font-size:0.88rem; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; margin-bottom:2px; }
+.tl-info p { font-size:0.76rem; color:var(--muted); }
+
+/* FOOTER */
+.app-footer { text-align:center; padding:24px 0 8px; }
+.app-footer p { font-size:0.72rem; color:var(--muted); }
+.app-footer strong { color:var(--blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrap">
+    <div class="logo-icon">I</div>
+    <div>
+      <div class="logo-text">Isifundisa</div>
+      <span class="logo-sub">by Nkanyezi Mhlongo</span>
+    </div>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('zu')">IsiZulu</button>
+  </div>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="go('home')">🏠 <span data-en="Home" data-zu="Ikhaya">Home</span></button>
+  <button class="nav-btn" onclick="go('modules')">📚 <span data-en="Modules" data-zu="Izifundo">Modules</span></button>
+  <button class="nav-btn" onclick="go('quiz')">❓ <span data-en="Quiz" data-zu="Uhlelo">Quiz</span></button>
+  <button class="nav-btn" onclick="go('flashcards')">🃏 <span data-en="Flashcards" data-zu="Amakhadi">Flashcards</span></button>
+  <button class="nav-btn" onclick="go('tutor')">🤖 <span data-en="AI Tutor" data-zu="Umfundisi we-AI">AI Tutor</span></button>
+  <button class="nav-btn" onclick="go('cyber')">🔐 <span data-en="Cyber" data-zu="Ukuphepha">Cyber</span></button>
+  <button class="nav-btn" onclick="go('harvard')">📝 <span data-en="Harvard" data-zu="Imithombo">Harvard</span></button>
+  <button class="nav-btn" onclick="go('career')">🗺️ <span data-en="Career" data-zu="Umsebenzi">Career</span></button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<div class="section active" id="home">
+  <div class="hero">
+    <div class="hero-tag" data-en="🇿🇦 Built for South African Students" data-zu="🇿🇦 Yakhiwe ngenxa yabafundi baseNingizimu Afrika">🇿🇦 Built for South African Students</div>
+    <h1><span data-en="Learn Smarter." data-zu="Funda Kahle.">Learn Smarter.</span><br><span data-en="Go Further." data-zu="Qhubeka Phambili.">Go Further.</span></h1>
+    <p data-en="UNISA study notes, quizzes, flashcards, cybersecurity roadmap & your personal AI Tutor — all in one app." data-zu="Amanothi ezifundo ze-UNISA, imihlolo, amakhadi, indlela yokuphepha kwe-intanethi kanye nomfundisi wakho we-AI — konke kuhlangene.">UNISA study notes, quizzes, flashcards, cybersecurity roadmap & your personal AI Tutor — all in one app.</p>
+    <div class="hero-creator">
+      <div class="creator-badge">Created by <span>Nkanyezi Mhlongo</span> 🎓</div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num">6</div>
+      <div class="stat-lbl" data-en="Modules" data-zu="Izifundo">Modules</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">40+</div>
+      <div class="stat-lbl" data-en="Questions" data-zu="Imibuzo">Questions</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">AI</div>
+      <div class="stat-lbl" data-en="Powered Tutor" data-zu="Umfundisi we-AI">Powered Tutor</div>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feat-card" style="--fc:#1a56db" onclick="go('modules')">
+      <div class="fi">📚</div>
+      <h3 data-en="Study Modules" data-zu="Izifundo">Study Modules</h3>
+      <p data-en="DVA1501, DVA1502, PLC1502 & more" data-zu="Zonke izifundo zakho">All your UNISA modules</p>
+    </div>
+    <div class="feat-card" style="--fc:#f59e0b" onclick="go('quiz')">
+      <div class="fi">❓</div>
+      <h3 data-en="Practice Quiz" data-zu="Uhlelo">Practice Quiz</h3>
+      <p data-en="Test yourself before exams" data-zu="Zihlole ngaphambi kwezivivinyo">Test yourself before exams</p>
+    </div>
+    <div class="feat-card" style="--fc:#059669" onclick="go('tutor')">
+      <div class="fi">🤖</div>
+      <h3 data-en="AI Tutor" data-zu="Umfundisi we-AI">AI Tutor</h3>
+      <p data-en="Ask any question, get instant answers" data-zu="Buza noma yimuphi umbuzo">Ask anything, get answers</p>
+    </div>
+    <div class="feat-card" style="--fc:#7c3aed" onclick="go('cyber')">
+      <div class="fi">🔐</div>
+      <h3 data-en="Cybersecurity" data-zu="Ukuphepha">Cybersecurity</h3>
+      <p data-en="SOC Analyst roadmap & concepts" data-zu="Indlela ye-SOC Analyst">SOC Analyst roadmap</p>
+    </div>
+  </div>
+
+  <div class="feat-card" style="--fc:#f59e0b; display:block; cursor:pointer" onclick="go('harvard')">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="fi" style="margin:0">📝</div>
+      <div>
+        <h3 data-en="Harvard Referencing Guide" data-zu="Isiqondiso se-Harvard">Harvard Referencing Guide</h3>
+        <p data-en="Cite correctly, avoid plagiarism, pass every assignment" data-zu="Bhala ngendlela efanele, wemande ukuphathwa imithombo">Cite correctly, avoid plagiarism</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px">
+    <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:10px;">⏳ Exam Countdown</div>
+    <div id="countdowns" style="display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div class="section" id="modules">
+  <div class="sec-title" data-en="Study Modules" data-zu="Izifundo">Study Modules</div>
+  <div class="sec-sub" data-en="Tap a module to expand your revision notes" data-zu="Thepha isifundo ukubone amanothi akho">Tap a module to expand your revision notes</div>
+
+  <div class="mod-card">
+    <div class="mod-header" onclick="toggleMod('m1')">
+      <div class="mod-badge">DVA1501</div>
+      <div class="mod-info">
+        <h3 data-en="Development Studies I" data-zu="Izifundo Zentuthuko I">Development Studies I</h3>
+        <p data-en="Sustainable development, theories & policy" data-zu="Intuthuko eqhubekayo nezinjulalwazi">Sustainable development, theories & policy</p>
+      </div>
+      <div class="mod-arrow" id="ma-m1">▼</div>
+    </div>
+    <div class="mod-body" id="mb-m1">
+      <div class="exam-pill">📅 Exam: 15 May — Moodle Proctored</div>
+      <ul>
+        <li data-en="Development improves human wellbeing: economic, social, political and cultural." data-zu="Intuthuko ithuthukisa impilo yabantu: ezomnotho, ezenhlalo, ezombusazwe namasiko.">Development improves human wellbeing: economic, social, political and cultural.</li>
+        <li data-en="Sustainable Development (Brundtland 1987): meeting present needs without compromising future generations." data-zu="Intuthuko eqhubekayo (Brundtland 1987): ukuhlangabezana nezidingo zanamuhla ngaphandle kokuphazamisa izizukulwane.">Sustainable Development (Brundtland 1987): present needs without compromising future generations.</li>
+        <li data-en="3 Pillars: Economic growth + Social equity + Environmental protection." data-zu="Izinsika ezintathu: Ukukhula kwezomnotho + Ukulingana kwezenhlalo + Ukuvikelwa kwemvelo.">3 Pillars: Economic growth + Social equity + Environmental protection.</li>
+        <li data-en="Modernisation Theory (Rostow): development follows linear stages from traditional to modern society." data-zu="Ithiyori yoHileleko (Rostow): intuthuko ilandela izigaba ezilandelana kusuka esigabeni somdabu kuya esikhathini sanamuhla.">Modernisation Theory (Rostow): linear stages from traditional to modern.</li>
+        <li data-en="Dependency Theory: underdevelopment caused by exploitation of poor countries by rich countries." data-zu="Ithiyori yokuncika: ukungathuthuki kudalwa ukuxhashazwa amazwe amahlwempu amazwe acebe.">Dependency Theory: underdevelopment caused by exploitation by rich nations.</li>
+        <li data-en="HDI (Human Development Index): measures life expectancy, education, and per capita income." data-zu="I-HDI ilinganisa ukuphila, imfundo, nengeniso yabantu ngabanye.">HDI measures life expectancy, education, and per capita income.</li>
+        <li data-en="17 SDGs adopted by the UN in 2015, targeting achievement by 2030." data-zu="Izinhloso ze-SDG ezingama-17 zamkelwa i-UN ngo-2015, zikhomba ukufezwa ngo-2030.">17 SDGs adopted by UN in 2015, targeting 2030.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-header" onclick="toggleMod('m2')">
+      <div class="mod-badge">DVA1502</div>
+      <div class="mod-info">
+        <h3 data-en="Development Studies II" data-zu="Izifundo Zentuthuko II">Development Studies II</h3>
+        <p data-en="Gender, 4IR, NHI, participatory development" data-zu="Ubulili, 4IR, NHI, intuthuko nokuhlanganyela">Gender, 4IR, NHI, participatory development</p>
+      </div>
+      <div class="mod-arrow" id="ma-m2">▼</div>
+    </div>
+    <div class="mod-body" id="mb-m2">
+      <div class="exam-pill">📅 Exam: 23 May</div>
+      <ul>
+        <li data-en="Gender mainstreaming: integrating gender equality into all government policies and programmes." data-zu="Ukufakwa kobudlela-ndlela bobulili: ukuhlanganisa ukulingana kobulili ezinqubomgomweni zonke.">Gender mainstreaming: integrating gender equality into all policies and programmes.</li>
+        <li data-en="4IR: Fourth Industrial Revolution — AI, robotics, IoT and big data transform economies." data-zu="4IR: Inqwelomoya Yesine — I-AI, amarobhothi, i-IoT nedatha enkulu iguqula umnotho.">4IR: AI, robotics, IoT and big data transforming economies.</li>
+        <li data-en="NHI: National Health Insurance — SA's plan for universal health coverage for all citizens." data-zu="NHI: Umshwalense Wezempilo kazwelonke — uhlelo lwaseNingizimu Afrika lezempilo zawo wonke umuntu.">NHI: SA's plan for universal health coverage.</li>
+        <li data-en="Participatory development: communities actively involved in decisions that affect them." data-zu="Intuthuko nokuhlanganyela: imiphakathi ibandakanyeka ezimisweni ezithinta yona.">Participatory development: communities actively involved in decisions.</li>
+        <li data-en="Paulo Freire: education is a tool for liberation, not oppression. Raises critical consciousness." data-zu="UPaulo Freire: imfundo iyisibeletho sokukhululeka, hhayi ukucindezela. Ivusa ukuqaphela okunzulu.">Paulo Freire: education as liberation, raising critical consciousness.</li>
+        <li data-en="Conscientisation: developing critical awareness of one's social reality, leading to action for change." data-zu="Ukuqaphela: ukuthuthukisa ukuqaphela okunzulu kwangempela kwezenhlalo, okuholela ekushintjeni.">Conscientisation: critical awareness leading to social action.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-header" onclick="toggleMod('m3')">
+      <div class="mod-badge">PLC1502</div>
+      <div class="mod-info">
+        <h3 data-en="Public Law & Legislation" data-zu="Umthetho Womphakathi">Public Law & Legislation</h3>
+        <p data-en="SA Constitution, rights, governance" data-zu="Umthethosisekelo, amalungelo, ukubusa">SA Constitution, rights, governance</p>
+      </div>
+      <div class="mod-arrow" id="ma-m3">▼</div>
+    </div>
+    <div class="mod-body" id="mb-m3">
+      <div class="exam-pill">📅 Exam: 1 July</div>
+      <ul>
+        <li data-en="The Constitution (1996) is the supreme law — all other laws must comply with it." data-zu="Umthethosisekelo (1996) uyumthetho ophakeme — yonke eminye imithetho kufanele ihambelane nawo.">Constitution (1996) is the supreme law of South Africa.</li>
+        <li data-en="Bill of Rights (Chapter 2): equality, dignity, freedom of expression, right to education." data-zu="Isatifiketi Samalungelo (Isahluko 2): ukulingana, isithunzi, inkululeko yokukhuluma, ilungelo lemfundo.">Bill of Rights (Chapter 2): equality, dignity, freedom of expression.</li>
+        <li data-en="Separation of powers: Legislature (Parliament) + Executive (President) + Judiciary (Courts)." data-zu="Ukuhlukaniswa kwamandla: uMthetho (iPhalamende) + uMgcinimandla (uMongameli) + Ubulungisa (Izinkantolo).">Separation of powers: Legislature + Executive + Judiciary.</li>
+        <li data-en="3 spheres of government: National + Provincial + Local — must cooperate (Chapter 3)." data-zu="Izinhlaka ezintathu zikahulumeni: uKazwelonke + Wesifundazwe + Wendawo — kufanele basebenzisane.">3 spheres: National + Provincial + Local (cooperative governance).</li>
+        <li data-en="Section 195: public administration must be democratic, accountable, transparent and efficient." data-zu="Isigaba 195: ukuphathwa kukahulumeni kufanele kube yidemokhrethiki, kuyaziphendulela, kusho inhleko futhi kusebenza kahle.">Section 195: public admin must be democratic, accountable, transparent.</li>
+        <li data-en="PAJA (Promotion of Administrative Justice Act): ensures fair, lawful and reasonable administrative action." data-zu="PAJA: iqinisekisa izenzo zokuphatha ezilungile, ezemthetho nezizwayo.">PAJA: ensures fair and lawful administrative action.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-header" onclick="toggleMod('m4')">
+      <div class="mod-badge">INF1505</div>
+      <div class="mod-info">
+        <h3 data-en="Information Systems" data-zu="Izinhlelo Zolwazi">Information Systems</h3>
+        <p data-en="Computing, networks, databases" data-zu="Ikhompyutha, amanethiwekhi, izinhlelo zedatha">Computing, networks, databases</p>
+      </div>
+      <div class="mod-arrow" id="ma-m4">▼</div>
+    </div>
+    <div class="mod-body" id="mb-m4">
+      <ul>
+        <li data-en="Information System: components that collect, process, store and output data for decision-making." data-zu="Uhlelo Lwezolwazi: izingxenye eziqoqa, zicubungule, zigcine futhi zikhiphe idata.">Information System: collects, processes, stores and outputs data.</li>
+        <li data-en="Hardware = physical components (CPU, RAM, monitor). Software = programs and applications." data-zu="Isakhiwo sekhompyutha = izingxenye ezibonakala. Isoftware = izinhlelo nezinhlelo.">Hardware = physical. Software = programs and applications.</li>
+        <li data-en="Networks: LAN (Local Area), WAN (Wide Area), MAN (Metropolitan Area)." data-zu="Amanethiwekhi: LAN (Endaweni), WAN (Esikhathini Esibanzi), MAN (Edolobheni).">Networks: LAN (Local), WAN (Wide), MAN (Metropolitan).</li>
+        <li data-en="DBMS (Database Management System): organises and manages structured data." data-zu="I-DBMS: ilawula futhi iphathe idata ehlelekile.">DBMS organises and manages structured data.</li>
+        <li data-en="Internet = public global network. Intranet = private internal organisation network." data-zu="I-Intanethi = inethiwekhi yomhlaba wonke. I-Intranethi = inethiwekhi yangasese.">Internet = public global. Intranet = private internal.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-header" onclick="toggleMod('m5')">
+      <div class="mod-badge">EUP1501</div>
+      <div class="mod-info">
+        <h3 data-en="End-User Computing" data-zu="Ikhompyutha Yomsebenzisi">End-User Computing</h3>
+        <p data-en="Excel, Word, formulas & spreadsheets" data-zu="i-Excel, i-Word, izifomula namaspredishithi">Excel, Word, formulas & spreadsheets</p>
+      </div>
+      <div class="mod-arrow" id="ma-m5">▼</div>
+    </div>
+    <div class="mod-body" id="mb-m5">
+      <ul>
+        <li data-en="Excel formulas start with '='. Example: =SUM(A1:A10) adds all values in the range." data-zu="Izifomula ze-Excel ziqala nge-'='. Isibonelo: =SUM(A1:A10) ihlanganisa izinombolo zonke.">Excel formulas start with '='. Example: =SUM(A1:A10).</li>
+        <li data-en="Nested IF (Excel 2016): =IF(condition, true_value, IF(condition2, value2, value3))" data-zu="IF ehlonzwe (Excel 2016): =IF(isimo, inani_kunjalo, IF(isimo2, inani2, inani3))">Nested IF: =IF(condition, value_if_true, IF(condition2, value2, value3))</li>
+        <li data-en="VLOOKUP: searches a column for a value and returns data from a specified column." data-zu="VLOOKUP: ifuna inani kusigaba bese ibuyisela idata kusigaba esinye.">VLOOKUP searches a column and returns data from another column.</li>
+        <li data-en="Absolute reference $A$1 stays fixed when copying. Relative reference A1 adjusts automatically." data-zu="Isiqondiso esingehlukani $A$1 sihlala siqinile lapho sikopisha. Isiqondiso esihambelanayo A1 sishintsha.">Absolute $A$1 stays fixed. Relative A1 adjusts when copying.</li>
+        <li data-en="Charts: select data → Insert tab → choose chart type (Bar, Line, Pie)." data-zu="Amagrafu: khetha idata → ithebhu ye-Insert → khetha uhlobo lwegrafu.">Charts: select data → Insert → choose chart type.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mod-card">
+    <div class="mod-header" onclick="toggleMod('m6')">
+      <div class="mod-badge">IOP1501</div>
+      <div class="mod-info">
+        <h3 data-en="Intro to Psychology" data-zu="Isingeniso kwe-Saikoloji">Intro to Psychology</h3>
+        <p data-en="Behaviour, motivation, personality theories" data-zu="Isimilo, ukukhuthazwa, izinjulalwazi zobuntu">Behaviour, motivation, personality</p>
+      </div>
+      <div class="mod-arrow" id="ma-m6">▼</div>
+    </div>
+    <div class="mod-body" id="mb-m6">
+      <ul>
+        <li data-en="Psychology: scientific study of human behaviour and mental processes." data-zu="Isayikoloji: isifundo sezesayensi sesimilo sabantu nezinqubo zengqondo.">Psychology: scientific study of behaviour and mental processes.</li>
+        <li data-en="Maslow's Hierarchy: Physiological → Safety → Love/Belonging → Esteem → Self-actualisation." data-zu="Uhlelo luka-Maslow: Izidingo zomzimba → Ukuphepha → Uthando → Ukuhlonishwa → Ukuzifeza.">Maslow: Physiological → Safety → Love → Esteem → Self-actualisation.</li>
+        <li data-en="Classical conditioning (Pavlov): behaviour learned through association with stimuli." data-zu="Ukufundiswa ngokwejwayelekile (Pavlov): isimilo sifundwa ngokuhlobanisa izithiyo.">Classical conditioning (Pavlov): learning through stimulus association.</li>
+        <li data-en="Operant conditioning (Skinner): behaviour shaped by reinforcement (reward) and punishment." data-zu="Ukufundiswa okuphenyiwe (Skinner): isimilo sakhiwa ukuqiniswa (umvuzo) nokuqondisa.">Operant conditioning (Skinner): reinforcement and punishment shape behaviour.</li>
+        <li data-en="Big Five personality traits: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism." data-zu="Izimfanelo zobuntu ezinhlanu: Ukuvuleka, Ukunakekela, Ukuphuma phandle, Ukuvumelana, Ukuzwela.">Big Five traits: Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="section" id="quiz">
+  <div id="qsetup">
+    <div class="sec-title" data-en="Practice Quiz" data-zu="Uhlelo Lokuqeqesha">Practice Quiz</div>
+    <div class="sec-sub" data-en="Choose a module and test your knowledge" data-zu="Khetha isifundo uhlole ulwazi lwakho">Choose a module and test your knowledge</div>
+    <div class="quiz-grid">
+      <button class="mod-pick" onclick="pickMod(this,'DVA1501')">DVA1501</button>
+      <button class="mod-pick" onclick="pickMod(this,'DVA1502')">DVA1502</button>
+      <button class="mod-pick" onclick="pickMod(this,'PLC1502')">PLC1502</button>
+      <button class="mod-pick" onclick="pickMod(this,'INF1505')">INF1505</button>
+      <button class="mod-pick" onclick="pickMod(this,'CYBER')">🔐 Cyber</button>
+      <button class="mod-pick" onclick="pickMod(this,'ALL')">🎲 Random Mix</button>
+    </div>
+    <button class="start-btn" id="startBtn" onclick="startQuiz()" disabled>Start Quiz →</button>
+  </div>
+  <div id="qplay" style="display:none"></div>
+</div>
+
+<!-- FLASHCARDS -->
+<div class="section" id="flashcards">
+  <div class="sec-title" data-en="Flashcards" data-zu="Amakhadi">Flashcards</div>
+  <div class="sec-sub" data-en="Tap the card to reveal the answer" data-zu="Thepha ikhadi ukubone impendulo">Tap the card to reveal the answer</div>
+  <div class="fc-card" onclick="flipFC()" id="fcCard">
+    <div class="fc-lbl" id="fcLbl" data-en="QUESTION" data-zu="UMBUZO">QUESTION</div>
+    <div class="fc-q" id="fcQ"></div>
+    <div class="fc-a" id="fcA"></div>
+  </div>
+  <div class="fc-nav">
+    <button class="fc-btn" onclick="fcMove(-1)">← <span data-en="Prev" data-zu="Elidlule">Prev</span></button>
+    <button class="fc-count" id="fcCount">1/15</button>
+    <button class="fc-btn" onclick="fcMove(1)"><span data-en="Next" data-zu="Okulandelayo">Next</span> →</button>
+  </div>
+</div>
+
+<!-- AI TUTOR -->
+<div class="section" id="tutor">
+  <div class="sec-title" data-en="AI Tutor" data-zu="Umfundisi we-AI">AI Tutor</div>
+  <div class="sec-sub" data-en="Ask anything about your studies or cybersecurity" data-zu="Buza noma yini mayelana nezifundo zakho noma ukuphepha">Ask anything — I'm here to help you pass</div>
+
+  <div class="tutor-wrap">
+    <div class="tutor-head">
+      <div class="tutor-avatar">🤖</div>
+      <div class="tutor-info">
+        <h3 data-en="Isifundisa AI Tutor" data-zu="Umfundisi we-AI we-Isifundisa">Isifundisa AI Tutor</h3>
+        <p><span class="online-dot"></span><span data-en="Online — ready to help" data-zu="Ku-intanethi — ukulungele ukusiza">Online — ready to help</span></p>
+      </div>
+    </div>
+
+    <div class="chat-area" id="chatArea">
+      <div class="msg bot">
+        <div class="msg-bubble" data-en="👋 Sawubona Nkanyezi! I'm your AI Tutor. I can help you with DVA1501, DVA1502, PLC1502, INF1505, EUP1501, IOP1501 and Cybersecurity. What would you like to learn today?" data-zu="👋 Sawubona Nkanyezi! Ngingumfundisi wakho we-AI. Ngingakusiza nge-DVA1501, DVA1502, PLC1502, INF1505, EUP1501, IOP1501 nangokuphepha kwe-Intanethi. Ufuna ukufunda ini namuhla?">👋 Sawubona Nkanyezi! I'm your AI Tutor. I can help you with DVA1501, DVA1502, PLC1502, INF1505, EUP1501, IOP1501 and Cybersecurity. What would you like to learn today?</div>
+        <div class="msg-time">Isifundisa AI</div>
+      </div>
+    </div>
+
+    <div class="typing-indicator" id="typing">
+      <div class="typing-bubble">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+
+    <div class="quick-prompts">
+      <button class="qp" onclick="sendQuick('Explain sustainable development')">Sustainable dev</button>
+      <button class="qp" onclick="sendQuick('What is the CIA Triad in cybersecurity?')">CIA Triad</button>
+      <button class="qp" onclick="sendQuick('Explain Maslow hierarchy of needs')">Maslow</button>
+      <button class="qp" onclick="sendQuick('How do I write a Harvard reference for a website?')">Harvard ref</button>
+      <button class="qp" onclick="sendQuick('What is SIEM and why is it important for SOC analysts?')">SIEM</button>
+      <button class="qp" onclick="sendQuick('Explain separation of powers in South Africa')">SA Constitution</button>
+      <button class="qp" onclick="sendQuick('What is participatory development?')">Participatory dev</button>
+    </div>
+
+    <div class="chat-input-wrap">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask your AI Tutor anything..." onkeydown="if(event.key==='Enter')sendMsg()" />
+      <button class="send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- CYBER -->
+<div class="section" id="cyber">
+  <div class="sec-title" data-en="Cybersecurity Roadmap" data-zu="Indlela Yokuphepha">Cybersecurity Roadmap</div>
+  <div class="sec-sub" data-en="Your path from student to SOC Analyst" data-zu="Indlela yakho kusuka kumfundi kuya ku-SOC Analyst">Your path from student to SOC Analyst</div>
+
+  <div class="roadmap-wrap">
+    <div class="rm-item">
+      <div class="rm-circle now">🎯</div>
+      <div class="rm-content">
+        <h3>Google Cybersecurity Certificate</h3>
+        <p data-en="Foundation: networking, Linux, SIEM tools, incident response basics. Available on Coursera." data-zu="Isisekelo: amanethiwekhi, Linux, amathuluzi e-SIEM, izinsiza zokuphendula izigameko.">Foundation: networking, Linux, SIEM, incident response. On Coursera.</p>
+        <span class="rm-tag tag-now" data-en="🎯 Currently in progress" data-zu="🎯 Kuyaqhubeka">🎯 Currently in progress</span>
+      </div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-circle now">2</div>
+      <div class="rm-content">
+        <h3>TryHackMe — SOC Level 1</h3>
+        <p data-en="Hands-on: log analysis, threat intelligence, SIEM tools, phishing analysis, digital forensics." data-zu="Ukusebenza ngezandla: ukuhlaziya ama-log, ulwazi lwezinsongo, amathuluzi e-SIEM.">Hands-on: log analysis, threat intelligence, SIEM, phishing, DFIR.</p>
+        <span class="rm-tag tag-free" data-en="✅ Free to start" data-zu="✅ Mahhala ukuqala">✅ Free to start</span>
+      </div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-circle lock">3</div>
+      <div class="rm-content">
+        <h3>CompTIA Security+</h3>
+        <p data-en="Industry-recognised: threats, cryptography, identity management, risk management." data-zu="Esaziwa ngumkhakha: izinsongo, imfihlo, ukuphathwa kobunjalo, ukuphathwa kwengozi.">Threats, cryptography, identity management, risk management.</p>
+        <span class="rm-tag tag-paid" data-en="💰 Paid exam" data-zu="💰 Uvivinyo lokukhokha">💰 Paid exam</span>
+      </div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-circle lock">4</div>
+      <div class="rm-content">
+        <h3>BTL1 — Blue Team Labs</h3>
+        <p data-en="Practical blue team cert: DFIR, threat hunting, SIEM investigations, network forensics." data-zu="Isitifiketi sethimba oluluhlaza: DFIR, ukuzingela izinsongo, iziphenyo ze-SIEM.">DFIR, threat hunting, SIEM investigations, network forensics.</p>
+        <span class="rm-tag tag-paid" data-en="💰 Practical cert" data-zu="💰 Isitifiketi sokusebenza">💰 Practical cert</span>
+      </div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-circle lock">5</div>
+      <div class="rm-content">
+        <h3>CySA+ + Junior SOC Role</h3>
+        <p data-en="CompTIA CySA+ then apply for junior SOC Analyst positions in SA government or private sector." data-zu="I-CySA+ bese wafaka isicelo sendawo ye-SOC analyst yomqala kahulumeni noma esikhwameni sabangasese.">CySA+ then apply for junior SOC Analyst roles in SA.</p>
+        <span class="rm-tag tag-free" data-en="🏆 Goal" data-zu="🏆 Inhloso">🏆 Final Goal</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title" style="margin-top:8px;font-size:1.1rem" data-en="🔐 Key SOC Concepts" data-zu="🔐 Imiqondo Esemqoka ye-SOC">🔐 Key SOC Concepts</div>
+  <div style="height:10px"></div>
+  <div class="topic-card">
+    <h4>CIA Triad</h4>
+    <p data-en="Confidentiality (authorised access only) + Integrity (data not altered) + Availability (systems accessible when needed). The foundation of all cybersecurity." data-zu="Imfihlo + Ukugcina + Ukutholakala. Isisekelo sokuPhepha kwe-Intanethi.">Confidentiality + Integrity + Availability — foundation of cybersecurity.</p>
+  </div>
+  <div class="topic-card">
+    <h4>SIEM</h4>
+    <p data-en="Security Information & Event Management: collects and analyses security logs from across the organisation to detect threats in real time." data-zu="Iqoqa futhi ihlaziye ama-log okuphepha ukuze ithole izinsongo ngesikhathi sangempela.">Collects and analyses security logs across the organisation to detect threats in real time.</p>
+  </div>
+  <div class="topic-card">
+    <h4>Incident Response (6 Phases)</h4>
+    <p data-en="Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned." data-zu="Ukulungiselela → Ukuhlonza → Ukuvalela → Ukuqeda → Ukubuyisela → Izifundo Ezifundiwe.">Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned.</p>
+  </div>
+  <div class="topic-card">
+    <h4>Phishing</h4>
+    <p data-en="Social engineering attack using fake emails or websites to trick users into revealing credentials. SOC analysts detect and respond to phishing daily." data-zu="Uhlaselo lwezenhlalo olusetshenziswa ama-imeyili noma izivivinyo zokukhwabanisa ukuze kukhohlise abasebenzisi.">Social engineering via fake emails/sites to steal credentials. Detected daily by SOC analysts.</p>
+  </div>
+  <div class="topic-card">
+    <h4>Log Analysis</h4>
+    <p data-en="Examining system and network logs to identify suspicious activity, security incidents and policy violations. Core SOC Analyst skill." data-zu="Ukuhlola ama-log ezinhlelo namanethiwekhi ukuze uhlonze ubugebengu nobungozi.">Examining logs to identify suspicious activity — a core SOC Analyst daily skill.</p>
+  </div>
+</div>
+
+<!-- HARVARD -->
+<div class="section" id="harvard">
+  <div class="sec-title" data-en="Harvard Referencing" data-zu="Imithombo ye-Harvard">Harvard Referencing</div>
+  <div class="sec-sub" data-en="UNISA standard — cite correctly every time" data-zu="Isimo se-UNISA — bhala ngendlela efanele njalo">UNISA standard — cite correctly every time</div>
+
+  <div class="ref-sec">
+    <h3>📖 <span data-en="Book / Study Guide" data-zu="Incwadi / Isiqondiso Sesifundo">Book / Study Guide</span></h3>
+    <div class="ref-box">
+      <h4 data-en="Reference List" data-zu="Uhlelo Lwemithombo">Reference List</h4>
+      <div class="ref-tpl">Surname, Initials. Year. <em>Title of book</em>. Edition. Place: Publisher.</div>
+      <div class="ref-eg">Dlamini, S.B. 2023. <em>Public Administration in South Africa</em>. 3rd ed. Pretoria: Van Schaik.</div>
+    </div>
+    <div class="ref-box">
+      <h4 data-en="In-text Citation" data-zu="Isiqalo Esiphakathi Kombhalo">In-text Citation</h4>
+      <div class="ref-tpl">(Surname Year:page) → e.g. (Dlamini 2023:45)</div>
+    </div>
+  </div>
+
+  <div class="ref-sec">
+    <h3>🌐 <span data-en="Website / Online Source" data-zu="Iwebhusayithi">Website / Online</span></h3>
+    <div class="ref-box">
+      <div class="ref-tpl">Author/Organisation. Year. <em>Page title</em>. [Online]. Available: URL [Accessed: Day Month Year].</div>
+      <div class="ref-eg">UNISA. 2024. <em>Student registration guide</em>. [Online]. Available: https://www.unisa.ac.za [Accessed: 5 May 2025].</div>
+    </div>
+  </div>
+
+  <div class="ref-sec">
+    <h3>📰 <span data-en="Journal Article" data-zu="Isihloko Sephephandaba">Journal Article</span></h3>
+    <div class="ref-box">
+      <div class="ref-tpl">Surname, Initials. Year. Article title. <em>Journal Name</em>. Volume(Issue):pages.</div>
+      <div class="ref-eg">Nkosi, T. 2022. Gender equality in SA development. <em>African Dev Review</em>. 14(1):22–38.</div>
+    </div>
+  </div>
+
+  <div class="ref-sec">
+    <h3>✅ <span data-en="Golden Rules" data-zu="Imithetho Yegolide">Golden Rules</span></h3>
+    <div class="ref-box">
+      <ul class="rules">
+        <li data-en="Reference list is alphabetical by author's surname." data-zu="Uhlelo lwemithombo lwenziwa ngokwendlela yonkamisa ngegama lesibongo.">Reference list is alphabetical by author surname.</li>
+        <li data-en="Every in-text citation must match an entry in the reference list." data-zu="Isiqalo ngasinye esiphakathi kombhalo kufanele sifane nensayinamento kuhlelo lwemithombo.">Every in-text citation must have a matching reference list entry.</li>
+        <li data-en="Direct quotes need page numbers and quotation marks: (Author Year:page)." data-zu="Iziqoqo zokuqondile zidinga izinombolo zamakhasi nezimpawu zokuqoqa.">Direct quotes need page numbers and quotation marks.</li>
+        <li data-en="Paraphrase to reduce Turnitin similarity — keep the meaning, change the words." data-zu="Phinda ngamagama akho ukwehlisa ukufanana kwe-Turnitin — gcina incazelo, shintsha amagama.">Paraphrase to reduce Turnitin — same meaning, your own words.</li>
+        <li data-en="Never use a URL as an in-text citation — use author name and year." data-zu="Ungasebenzisi i-URL njengokusho ephakathi kombhalo.">Never use a URL as an in-text citation.</li>
+        <li data-en="UNISA study guides: cite as (UNISA Year:page) in-text." data-zu="Iziqondiso ze-UNISA: sho njenge (UNISA Unyaka:ikhasi) ephakathi kombhalo.">UNISA study guides: cite as (UNISA Year:page).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CAREER -->
+<div class="section" id="career">
+  <div class="career-hero">
+    <h2 data-en="🗺️ Nkanyezi's Career Roadmap" data-zu="🗺️ Indlela Yomsebenzi kaNkanyezi">🗺️ Nkanyezi's Career Roadmap</h2>
+    <p data-en="From UNISA student → SOC Analyst → IT Governance in SA Government" data-zu="Kusuka kumfundi we-UNISA → SOC Analyst → Ukuphathwa kwezobuchwepheshe Kahulumeni">From UNISA student → SOC Analyst → IT Governance in SA Government</p>
+  </div>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-dot done"></div><div class="tl-info"><h4 data-en="✅ UNISA BA — Gov Admin & Development" data-zu="✅ BA ye-UNISA — Ukuphathwa Kukahulumeni">✅ UNISA BA — Gov Admin & Development</h4><p>DVA1501, DVA1502, PLC1502, INF1505, EUP1501, IOP1501</p></div></div>
+    <div class="tl-item"><div class="tl-dot now"></div><div class="tl-info"><h4 data-en="🎯 Google Cybersecurity Certificate (Coursera)" data-zu="🎯 Isitifiketi se-Google Cybersecurity (Coursera)">🎯 Google Cybersecurity Certificate (Coursera)</h4><p data-en="Foundation for all cybersecurity certifications" data-zu="Isisekelo sazo zonke izitifiketi zobuchwepheshe">Foundation for the SOC Analyst path</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-info"><h4>TryHackMe SOC Level 1 + CompTIA Security+</h4><p data-en="Hands-on skills + industry recognised certification" data-zu="Amakhono okusebenza + isitifiketi esaziwa ngumkhakha">Hands-on skills + industry certification</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-info"><h4>BTL1 + CompTIA CySA+</h4><p data-en="Advanced analyst certifications" data-zu="Izitifiketi eziPhakeme zohlelo-beke">Advanced analyst certifications</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-info"><h4 data-en="Junior SOC Analyst Role" data-zu="Indima ye-Junior SOC Analyst">Junior SOC Analyst Role</h4><p data-en="SA Government or private sector cybersecurity team" data-zu="Ithimba lokuphepha kwe-intanethi kahulumeni noma esikhwameni sabangasese">SA Government or private sector cyber team</p></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-info"><h4 data-en="🏆 IT Governance & Compliance — SA Government" data-zu="🏆 Ukuphathwa kwezobuchwepheshe — Kahulumeni waseNingizimu Afrika">🏆 IT Governance & Compliance — SA Government</h4><p data-en="Combining BA degree + cybersecurity expertise in public sector" data-zu="Ukuhlanganisa iziqu ze-BA + ubuchwepheshe bokuphepha emisebenzini yomphakathi">BA degree + cybersecurity expertise in public sector</p></div></div>
+  </div>
+  <div class="card">
+    <h3 style="font-size:0.9rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;margin-bottom:10px;" data-en="💼 Income While Studying" data-zu="💼 Ingeniso Ngesikhathi Sokufunda">💼 Income While Studying</h3>
+    <ul class="rules">
+      <li data-en="TranscribeMe — earn per audio minute transcribed" data-zu="I-TranscribeMe — hola ngomzuzu wezwi obhalwe">TranscribeMe — earn per audio minute transcribed</li>
+      <li data-en="Forklift Operator — TETA F1 cert (Abethu Skills, Durban Central)" data-zu="Umshayeli we-Forklift — isitifiketi se-TETA F1 (Abethu Skills, Durban)">Forklift Operator — TETA F1 cert (Abethu Skills, Durban)</li>
+      <li data-en="Fiverr / Upwork — freelance admin, data entry, writing" data-zu="I-Fiverr/Upwork — umsebenzi ongenamthamo, ukufaka idata, ukubhala">Fiverr / Upwork — freelance admin, data entry, writing</li>
+      <li data-en="LGSETA Bursary — most relevant bursary for Gov Admin students" data-zu="Isibonelelo se-LGSETA — esifanele kakhulu abafundi bakahulumeni">LGSETA Bursary — most relevant for Gov Admin students</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<div class="app-footer">
+  <p>Isifundisa v3 · Built by <strong>Nkanyezi Mhlongo</strong> · 112 Questions · Powered by AI 🇿🇦</p>
+</div>
+
+<script>
+// ── LANGUAGE ──
+let lang = 'en';
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active', (l==='en'&&i===0)||(l==='zu'&&i===1)));
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.textContent = el.getAttribute('data-'+l) || el.getAttribute('data-en');
+  });
+  loadFC();
+}
+
+// ── NAVIGATION ──
+const sections = ['home','modules','quiz','flashcards','tutor','cyber','harvard','career'];
+function go(id) {
+  sections.forEach(s=>{
+    document.getElementById(s).classList.toggle('active', s===id);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active', sections[i]===id));
+  if(id==='flashcards') loadFC();
+  window.scrollTo(0,0);
+}
+
+// ── MODULES ──
+function toggleMod(id) {
+  const body = document.getElementById('mb-'+id);
+  const arr  = document.getElementById('ma-'+id);
+  const open = body.classList.contains('open');
+  document.querySelectorAll('.mod-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.mod-arrow').forEach(a=>a.textContent='▼');
+  if(!open){ body.classList.add('open'); arr.textContent='▲'; }
+}
+
+// ── EXAM COUNTDOWN ──
+function getCountdowns(){
+  const now=new Date();
+  const exams=[
+    {name:"DVA1501",date:new Date('2026-05-15'),color:'#dc2626'},
+    {name:"DVA1502",date:new Date('2026-05-23'),color:'#d97706'},
+    {name:"PLC1502",date:new Date('2026-07-01'),color:'#059669'},
+  ];
+  return exams.map(e=>{
+    const diff=e.date-now;
+    const days=Math.max(0,Math.ceil(diff/(1000*60*60*24)));
+    return {...e,days};
+  });
+}
+function renderCountdowns(){
+  const el=document.getElementById('countdowns');
+  if(!el)return;
+  const cd=getCountdowns();
+  el.innerHTML=cd.map(e=>`
+    <div style="background:white;border:1.5px solid ${e.color}30;border-radius:14px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+      <div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.85rem;color:#0f172a">${e.name}</div>
+        <div style="font-size:0.7rem;color:#6b7280;margin-top:1px">${e.date.toDateString()}</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:${e.color};line-height:1">${e.days}</div>
+        <div style="font-size:0.65rem;color:#6b7280;font-weight:600">DAYS LEFT</div>
+      </div>
+    </div>`).join('');
+}
+setTimeout(renderCountdowns,100);
+
+// ── QUIZ DATA (100+ questions) ──
+const QDB = {
+  DVA1501:[
+    {q:"What year was the Brundtland Report published?",a:"1987",opts:["1972","1987","1992","2000"],exp:"The Brundtland Report (Our Common Future) was published in 1987, defining sustainable development."},
+    {q:"What are the 3 pillars of sustainable development?",a:"Economic, Social, Environmental",opts:["Economic, Social, Environmental","Political, Legal, Cultural","Health, Education, Housing","Technology, Trade, Transport"],exp:"The 3 pillars are Economic growth, Social equity, and Environmental protection."},
+    {q:"Which theory argues development follows linear stages from traditional to modern?",a:"Modernisation Theory",opts:["Dependency Theory","Modernisation Theory","World Systems Theory","Participatory Theory"],exp:"Modernisation Theory (Rostow) argues societies progress through linear stages of development."},
+    {q:"How many Sustainable Development Goals (SDGs) are there?",a:"17",opts:["8","12","17","21"],exp:"The UN adopted 17 SDGs in 2015, to be achieved by 2030."},
+    {q:"What does HDI measure?",a:"Life expectancy, education, income",opts:["GDP only","Life expectancy, education, income","Military strength","Trade balance"],exp:"HDI measures life expectancy, education level, and per capita income."},
+    {q:"Dependency Theory argues underdevelopment is caused by:",a:"Exploitation by developed countries",opts:["Lack of natural resources","Exploitation by developed countries","Too much government","Poor climate"],exp:"Dependency Theory holds that poorer nations remain underdeveloped due to exploitation by wealthier nations."},
+    {q:"Who developed the Stages of Economic Growth model?",a:"Walt Rostow",opts:["Karl Marx","Walt Rostow","Amartya Sen","Andre Gunder Frank"],exp:"Walt Rostow developed the 5 Stages of Economic Growth (Modernisation Theory) in 1960."},
+    {q:"What is the first stage in Rostow's model?",a:"Traditional Society",opts:["Takeoff","Traditional Society","Preconditions","Mass Consumption"],exp:"Rostow's first stage is Traditional Society — subsistence farming, limited technology."},
+    {q:"Which concept measures a country's development beyond GDP alone?",a:"HDI",opts:["GNP","HDI","CPI","FDI"],exp:"The Human Development Index (HDI) measures life expectancy, education and income — not just GDP."},
+    {q:"The Brundtland Report was officially titled:",a:"Our Common Future",opts:["Our Common Future","Agenda 21","The Earth Report","Limits to Growth"],exp:"The Brundtland Report is officially titled 'Our Common Future' (1987)."},
+    {q:"World Systems Theory was developed by:",a:"Immanuel Wallerstein",opts:["Karl Marx","Immanuel Wallerstein","Paulo Freire","Walt Rostow"],exp:"Immanuel Wallerstein developed World Systems Theory, dividing the world into core, semi-periphery and periphery."},
+    {q:"Which year did the UN adopt the 17 SDGs?",a:"2015",opts:["2000","2010","2015","2020"],exp:"The 17 SDGs were adopted by the UN in September 2015 as part of the 2030 Agenda."},
+    {q:"Basic needs approach to development focuses on:",a:"Food, shelter, health, education",opts:["GDP growth only","Food, shelter, health, education","Military strength","Trade surplus"],exp:"The basic needs approach focuses on essential human needs: food, shelter, clean water, health and education."},
+    {q:"Andre Gunder Frank is associated with which theory?",a:"Dependency Theory",opts:["Modernisation Theory","Dependency Theory","Humanist Theory","Ecological Theory"],exp:"Andre Gunder Frank is a key thinker in Dependency Theory, arguing development of the west caused underdevelopment elsewhere."},
+    {q:"What does 'sustainable' in sustainable development primarily mean?",a:"Long-lasting without damaging the environment",opts:["Profitable","Long-lasting without damaging the environment","Government-funded","Technology-based"],exp:"Sustainable means meeting current needs without compromising the ability of future generations to meet their own needs."},
+    {q:"SDG 1 targets:",a:"No poverty",opts:["No poverty","Zero hunger","Good health","Quality education"],exp:"SDG 1 is 'No Poverty' — ending poverty in all its forms everywhere by 2030."},
+    {q:"SDG 4 targets:",a:"Quality education",opts:["Clean water","Quality education","Climate action","Gender equality"],exp:"SDG 4 aims to ensure inclusive and quality education and promote lifelong learning for all."},
+  ],
+  DVA1502:[
+    {q:"What does 4IR stand for?",a:"Fourth Industrial Revolution",opts:["Fourth International Relations","Fourth Industrial Revolution","Fourth Infrastructure Report","Fourth Income Review"],exp:"4IR = Fourth Industrial Revolution — AI, IoT, robotics and big data transforming economies."},
+    {q:"What is NHI in South Africa?",a:"National Health Insurance",opts:["National Housing Initiative","National Health Insurance","New Higher Institution","National Highway Infrastructure"],exp:"NHI = National Health Insurance — SA's plan for universal health coverage for all citizens."},
+    {q:"Paulo Freire described education as:",a:"A tool for liberation",opts:["A tool for oppression","A tool for liberation","A banking system","A state control mechanism"],exp:"Freire argued education should liberate people by raising critical consciousness (conscientisation)."},
+    {q:"Gender mainstreaming means:",a:"Integrating gender equality into all policies",opts:["Only hiring women","Integrating gender equality into all policies","Separating men and women","Creating gender-only departments"],exp:"Gender mainstreaming integrates a gender equality perspective into all policies and programmes."},
+    {q:"Conscientisation was coined by:",a:"Paulo Freire",opts:["Karl Marx","Paulo Freire","Nelson Mandela","Amartya Sen"],exp:"Paulo Freire coined conscientisation — developing critical awareness of social reality leading to action."},
+    {q:"Freire's 'banking concept' of education refers to:",a:"Students as passive recipients of knowledge",opts:["Paying school fees","Students as passive recipients of knowledge","Online learning","Investing in education"],exp:"Freire criticised 'banking education' where teachers deposit knowledge into passive students, suppressing critical thinking."},
+    {q:"Which technology is NOT part of 4IR?",a:"Steam engine",opts:["Artificial Intelligence","Steam engine","Internet of Things","Big Data"],exp:"The steam engine belongs to the First Industrial Revolution (1IR). 4IR involves AI, IoT, robotics and big data."},
+    {q:"Participatory development ensures:",a:"Communities are involved in decisions affecting them",opts:["Government decides everything","Communities are involved in decisions affecting them","Only experts plan development","Foreign aid drives decisions"],exp:"Participatory development actively involves local communities in planning, implementing and evaluating development."},
+    {q:"What does NHI aim to achieve?",a:"Universal health coverage for all South Africans",opts:["Private healthcare only","Universal health coverage for all South Africans","Free medicine for pensioners","Hospital privatisation"],exp:"NHI aims to provide quality healthcare to all South Africans regardless of their income or employment status."},
+    {q:"Gender-based violence (GBV) in development is addressed through:",a:"Gender mainstreaming and policy reform",opts:["Ignoring the issue","Gender mainstreaming and policy reform","Building more prisons","Reducing women's rights"],exp:"GBV is addressed through gender mainstreaming, legislation, policy reform and community awareness programmes."},
+    {q:"IoT stands for:",a:"Internet of Things",opts:["Internet of Technology","Internet of Things","Integrated Online Tools","Internal Operating Technology"],exp:"IoT = Internet of Things — everyday objects connected to the internet and sharing data."},
+    {q:"The 4IR challenge for developing nations like SA includes:",a:"Digital divide and unequal access to technology",opts:["Too much technology","Digital divide and unequal access to technology","Excess skilled workers","Overproduction"],exp:"A key 4IR challenge for SA is the digital divide — unequal access to technology and digital skills."},
+    {q:"Freire's 'Pedagogy of the Oppressed' was published in:",a:"1968",opts:["1945","1968","1980","1995"],exp:"Paulo Freire published Pedagogy of the Oppressed in 1968 — a foundational text in critical education theory."},
+    {q:"Bottom-up development means:",a:"Communities lead their own development",opts:["Government funds everything","Communities lead their own development","Top experts make decisions","International donors control plans"],exp:"Bottom-up development is community-led, contrasting with top-down approaches where government or experts decide."},
+    {q:"Which SA legislation addresses gender equality in the workplace?",a:"Employment Equity Act",opts:["Labour Relations Act","Employment Equity Act","PAJA","Constitution Section 9"],exp:"The Employment Equity Act promotes equal opportunity and fair treatment in employment, including gender equality."},
+    {q:"Digital transformation in 4IR affects public administration by:",a:"Enabling e-government and digital service delivery",opts:["Eliminating all government jobs","Enabling e-government and digital service delivery","Reducing internet use","Banning social media"],exp:"4IR enables e-government — digital service delivery, online applications and data-driven governance."},
+  ],
+  PLC1502:[
+    {q:"In which year was the South African Constitution adopted?",a:"1996",opts:["1990","1994","1996","2000"],exp:"The final Constitution of SA was adopted in 1996 and is the supreme law of the land."},
+    {q:"Which Chapter contains the Bill of Rights?",a:"Chapter 2",opts:["Chapter 1","Chapter 2","Chapter 3","Chapter 5"],exp:"Chapter 2 of the Constitution contains the Bill of Rights, guaranteeing fundamental rights to all."},
+    {q:"What does PAJA stand for?",a:"Promotion of Administrative Justice Act",opts:["Public Administration Justice Act","Promotion of Administrative Justice Act","Provincial Authority Judicial Act","Public Affairs Justice Agency"],exp:"PAJA ensures fair, lawful and reasonable administrative action by government bodies."},
+    {q:"Section 195 deals with:",a:"Public administration principles",opts:["Bill of Rights","Public administration principles","Court procedures","Land reform"],exp:"Section 195 sets out the values and principles governing public administration in SA."},
+    {q:"The three spheres of government in SA are:",a:"National, Provincial, Local",opts:["Federal, State, City","National, Provincial, Local","Executive, Legislature, Judiciary","Central, Regional, Municipal"],exp:"SA has 3 spheres of cooperative government: national, provincial, and local."},
+    {q:"The principle of separation of powers means:",a:"Legislature, Executive and Judiciary operate independently",opts:["All power to the President","Legislature, Executive and Judiciary operate independently","Parliament makes all decisions","Courts control government"],exp:"Separation of powers prevents abuse by ensuring Legislature (laws), Executive (implement) and Judiciary (interpret) are separate."},
+    {q:"Which section of the Constitution guarantees the right to equality?",a:"Section 9",opts:["Section 1","Section 9","Section 14","Section 32"],exp:"Section 9 of the Bill of Rights guarantees the right to equality and prohibits unfair discrimination."},
+    {q:"What is administrative justice?",a:"Fair, lawful and reasonable government decision-making",opts:["Fast government decisions","Fair, lawful and reasonable government decision-making","Secret government decisions","Expensive legal processes"],exp:"Administrative justice means government decisions must be fair, lawful, reasonable and procedurally fair."},
+    {q:"The Constitution is the supreme law because:",a:"All other laws must be consistent with it",opts:["The President signed it","All other laws must be consistent with it","It is the oldest law","Parliament cannot change it"],exp:"The Constitution is supreme — any law inconsistent with it is invalid (Section 2)."},
+    {q:"Which right allows citizens to access government information?",a:"Right to access to information (Section 32)",opts:["Right to privacy","Right to access to information (Section 32)","Right to dignity","Right to vote"],exp:"Section 32 gives everyone the right to access information held by the state needed to exercise their rights."},
+    {q:"Cooperative governance (Chapter 3) requires:",a:"All three spheres to work together",opts:["National government to control all spheres","All three spheres to work together","Provinces to ignore local government","Local government to be independent"],exp:"Chapter 3 requires national, provincial and local governments to cooperate and support each other."},
+    {q:"The Constitutional Court is:",a:"The highest court for constitutional matters",opts:["A magistrate court","The highest court for constitutional matters","A labour court","A regional court"],exp:"The Constitutional Court is SA's highest court for matters involving the Constitution."},
+    {q:"Public administration must be developmental, meaning:",a:"It must promote service delivery and improve citizens' lives",opts:["It must profit government","It must promote service delivery and improve citizens' lives","It must employ more officials","It must cut spending"],exp:"Section 195 requires public administration to be developmental — serving citizens and improving their wellbeing."},
+    {q:"PFMA stands for:",a:"Public Finance Management Act",opts:["Public Finance Management Act","Public Funding and Management Act","Provincial Finance Management Authority","Public Federal Management Agreement"],exp:"The PFMA (Public Finance Management Act) regulates financial management in national and provincial government."},
+    {q:"Which body oversees public administration in SA?",a:"Public Service Commission",opts:["SARS","Public Service Commission","Reserve Bank","Auditor-General"],exp:"The Public Service Commission oversees and evaluates the public service, promoting professional ethics and good governance."},
+    {q:"The right to vote in SA is in:",a:"Section 19",opts:["Section 9","Section 19","Section 25","Section 33"],exp:"Section 19 of the Bill of Rights guarantees every adult South African citizen the right to vote."},
+  ],
+  INF1505:[
+    {q:"What does LAN stand for?",a:"Local Area Network",opts:["Large Area Network","Local Area Network","Linear Access Node","Linked Area Network"],exp:"LAN = Local Area Network — connects devices within a small area like a building or campus."},
+    {q:"A database is managed by:",a:"DBMS",opts:["CPU","DBMS","RAM","OS"],exp:"A DBMS (Database Management System) manages, stores and retrieves data in a structured database."},
+    {q:"Internet is public; Intranet is:",a:"Private",opts:["Public","Private","Global","Wireless"],exp:"Intranet is a private internal network used within an organisation, unlike the public Internet."},
+    {q:"Which Excel formula adds a range of cells?",a:"=SUM()",opts:["=ADD()","=TOTAL()","=SUM()","=COUNT()"],exp:"=SUM(A1:A10) adds all values in the range from A1 to A10."},
+    {q:"What does WAN stand for?",a:"Wide Area Network",opts:["Wireless Area Network","Wide Area Network","Web Access Node","Wired Application Network"],exp:"WAN = Wide Area Network — covers large geographic areas, connecting multiple LANs (e.g. the Internet)."},
+    {q:"RAM stands for:",a:"Random Access Memory",opts:["Read Access Memory","Random Access Memory","Remote Application Module","Rapid Action Memory"],exp:"RAM = Random Access Memory — temporary storage used by the CPU to run programs and processes."},
+    {q:"What is the CPU?",a:"The brain of the computer that processes instructions",opts:["A storage device","The brain of the computer that processes instructions","A network cable","A printer component"],exp:"CPU (Central Processing Unit) is the brain of the computer — it executes all instructions and calculations."},
+    {q:"What is an operating system?",a:"Software that manages hardware and software resources",opts:["A word processor","Software that manages hardware and software resources","A database","A web browser"],exp:"An OS (e.g. Windows, Linux) manages all hardware and software, providing a platform for applications."},
+    {q:"What does MAN stand for?",a:"Metropolitan Area Network",opts:["Mobile Area Network","Metropolitan Area Network","Managed Access Network","Multiple Area Node"],exp:"MAN = Metropolitan Area Network — covers a city or large campus, larger than LAN but smaller than WAN."},
+    {q:"Input devices include:",a:"Keyboard and mouse",opts:["Monitor and printer","Keyboard and mouse","Hard drive and RAM","Router and switch"],exp:"Input devices send data TO the computer — keyboard, mouse, scanner, microphone."},
+    {q:"Output devices include:",a:"Monitor and printer",opts:["Keyboard and mouse","Monitor and printer","Hard drive and CPU","Scanner and webcam"],exp:"Output devices receive data FROM the computer — monitor, printer, speakers."},
+    {q:"What is cloud computing?",a:"Storing and accessing data over the internet",opts:["Computing with solar energy","Storing and accessing data over the internet","A type of hardware","Wireless printing"],exp:"Cloud computing means storing and accessing programs and data over the internet instead of locally."},
+    {q:"What does URL stand for?",a:"Uniform Resource Locator",opts:["Universal Resource Link","Uniform Resource Locator","United Remote Location","Unified Resource Language"],exp:"URL = Uniform Resource Locator — the web address used to locate a resource on the internet (e.g. https://unisa.ac.za)."},
+    {q:"A spreadsheet organises data in:",a:"Rows and columns",opts:["Pages and paragraphs","Rows and columns","Slides and frames","Tables and charts only"],exp:"Spreadsheets (like Excel) organise data in rows (horizontal) and columns (vertical) forming cells."},
+    {q:"What does HTTP stand for?",a:"HyperText Transfer Protocol",opts:["HyperText Transfer Protocol","High Tech Transfer Program","Hyperlink Text Transfer Process","Host Transfer Technology Protocol"],exp:"HTTP = HyperText Transfer Protocol — the foundation of data communication on the World Wide Web."},
+    {q:"Phishing emails are an example of:",a:"A cybersecurity threat",opts:["Good IT practice","A cybersecurity threat","Network upgrade","Software update"],exp:"Phishing emails trick users into revealing credentials — a common cybersecurity threat in information systems."},
+  ],
+  EUP1501:[
+    {q:"Excel formulas must begin with:",a:"= (equals sign)",opts:["+ (plus sign)","= (equals sign)","# (hash)","@ (at sign)"],exp:"All Excel formulas must start with = (e.g. =SUM(A1:A10)) to tell Excel it is a formula."},
+    {q:"Which formula counts cells with numbers?",a:"=COUNT()",opts:["=SUM()","=COUNT()","=AVERAGE()","=IF()"],exp:"=COUNT() counts the number of cells in a range that contain numeric values."},
+    {q:"What does VLOOKUP do?",a:"Searches a column and returns a value from another column",opts:["Adds a column of numbers","Searches a column and returns a value from another column","Counts cells","Sorts data alphabetically"],exp:"VLOOKUP searches the leftmost column for a value and returns data from a specified column in the same row."},
+    {q:"Absolute cell reference in Excel uses:",a:"$ signs (e.g. $A$1)",opts:["* signs","$ signs (e.g. $A$1)","# signs","@ signs"],exp:"$A$1 is an absolute reference — it does not change when the formula is copied to other cells."},
+    {q:"Relative reference A1 means:",a:"It adjusts when the formula is copied",opts:["It stays fixed","It adjusts when the formula is copied","It refers to the whole column","It is always zero"],exp:"Relative references like A1 automatically adjust row/column when copied — unlike absolute $A$1."},
+    {q:"Nested IF in Excel 2016 looks like:",a:"=IF(condition, value, IF(condition2, value2, value3))",opts:["=IFS(condition, value)","=IF(condition, value, IF(condition2, value2, value3))","=IF+IF(condition)","=IFELSE(condition)"],exp:"Excel 2016 uses nested IF instead of IFS. Format: =IF(cond1, val1, IF(cond2, val2, val3))."},
+    {q:"To create a chart in Excel, first:",a:"Select the data you want to chart",opts:["Click Print","Select the data you want to chart","Open a new file","Click Save"],exp:"To create a chart: select your data first, then go to Insert tab and choose your chart type."},
+    {q:"=AVERAGE(B1:B10) calculates:",a:"The mean of values in B1 to B10",opts:["The total of B1 to B10","The mean of values in B1 to B10","The largest value","The count of cells"],exp:"=AVERAGE() calculates the arithmetic mean (sum divided by count) of the specified range."},
+    {q:"What does =MAX(A1:A10) return?",a:"The largest value in the range",opts:["The smallest value","The largest value in the range","The average","The total"],exp:"=MAX() returns the highest (largest) numeric value in the specified range."},
+    {q:"What does =MIN(A1:A10) return?",a:"The smallest value in the range",opts:["The largest value","The smallest value in the range","The average","The count"],exp:"=MIN() returns the lowest (smallest) numeric value in the specified range."},
+    {q:"In Excel, a cell is identified by:",a:"Its column letter and row number (e.g. B3)",opts:["Its colour","Its column letter and row number (e.g. B3)","Its font size","Its position on screen"],exp:"Each cell has a unique address: column letter + row number. B3 = column B, row 3."},
+    {q:"What is a pivot table used for?",a:"Summarising and analysing large data sets",opts:["Drawing pictures","Summarising and analysing large data sets","Formatting text","Sending emails"],exp:"Pivot tables allow you to summarise, analyse and explore large data sets interactively in Excel."},
+    {q:"To freeze the top row in Excel, you use:",a:"View → Freeze Panes → Freeze Top Row",opts:["Format → Lock Row","View → Freeze Panes → Freeze Top Row","Insert → Header","Home → Freeze"],exp:"Go to View tab → Freeze Panes → Freeze Top Row to keep headings visible when scrolling."},
+    {q:"=COUNTIF(A1:A10, \">5\") counts:",a:"Cells with values greater than 5",opts:["All cells","Cells with values greater than 5","Empty cells","Cells equal to 5"],exp:"=COUNTIF counts cells meeting a condition. >5 means only cells with values above 5 are counted."},
+    {q:"A bar chart is best used for:",a:"Comparing values across categories",opts:["Showing trends over time","Comparing values across categories","Showing proportions of a whole","Displaying geographic data"],exp:"Bar charts are ideal for comparing values across different categories (e.g. sales per region)."},
+  ],
+  IOP1501:[
+    {q:"Psychology is the scientific study of:",a:"Human behaviour and mental processes",opts:["Animal behaviour only","Human behaviour and mental processes","Brain surgery","Political systems"],exp:"Psychology scientifically studies human behaviour and mental processes, including thoughts, emotions and actions."},
+    {q:"Maslow's hierarchy — which need is at the base?",a:"Physiological needs",opts:["Safety needs","Physiological needs","Love and belonging","Esteem"],exp:"Physiological needs (food, water, shelter, sleep) are at the base — they must be met before higher needs."},
+    {q:"Self-actualisation in Maslow's hierarchy means:",a:"Reaching one's full potential",opts:["Buying a house","Reaching one's full potential","Making friends","Getting a salary"],exp:"Self-actualisation is the highest level — achieving one's full potential, creativity and purpose."},
+    {q:"Classical conditioning was developed by:",a:"Ivan Pavlov",opts:["B.F. Skinner","Ivan Pavlov","Sigmund Freud","Abraham Maslow"],exp:"Ivan Pavlov developed classical conditioning through his famous experiment with dogs and bells."},
+    {q:"Operant conditioning was developed by:",a:"B.F. Skinner",opts:["Ivan Pavlov","B.F. Skinner","Carl Rogers","Erik Erikson"],exp:"B.F. Skinner developed operant conditioning — behaviour shaped through reinforcement and punishment."},
+    {q:"Positive reinforcement means:",a:"Adding a reward to increase behaviour",opts:["Punishing bad behaviour","Adding a reward to increase behaviour","Removing something unpleasant","Ignoring behaviour"],exp:"Positive reinforcement adds a pleasant stimulus after behaviour to increase the likelihood of it repeating."},
+    {q:"The Big Five personality traits are:",a:"Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism",opts:["Courage, Wisdom, Justice, Moderation, Loyalty","Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism","Intelligence, Creativity, Empathy, Drive, Honesty","Happiness, Sadness, Anger, Fear, Disgust"],exp:"The Big Five (OCEAN): Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism."},
+    {q:"Sigmund Freud's approach to psychology is called:",a:"Psychoanalytic theory",opts:["Behaviorism","Psychoanalytic theory","Humanism","Cognitive theory"],exp:"Freud's psychoanalytic theory focuses on the unconscious mind, dreams and early childhood experiences."},
+    {q:"Carl Rogers is associated with:",a:"Humanistic psychology",opts:["Behaviourism","Humanistic psychology","Cognitive psychology","Biological psychology"],exp:"Carl Rogers founded humanistic psychology — focusing on personal growth, self-concept and unconditional positive regard."},
+    {q:"The unconscious mind is a concept from:",a:"Freud's psychoanalytic theory",opts:["Behaviourism","Freud's psychoanalytic theory","Maslow's hierarchy","Cognitive theory"],exp:"Freud argued that unconscious thoughts and repressed memories drive much of human behaviour."},
+    {q:"Negative reinforcement involves:",a:"Removing something unpleasant to increase behaviour",opts:["Adding punishment","Removing something unpleasant to increase behaviour","Ignoring behaviour","Adding rewards"],exp:"Negative reinforcement removes an unpleasant stimulus (e.g. removing pain) to increase a desired behaviour."},
+    {q:"Perception in psychology refers to:",a:"How we interpret sensory information",opts:["Random thoughts","How we interpret sensory information","Memory storage","Problem solving"],exp:"Perception is the process of organising and interpreting sensory information from the environment."},
+    {q:"Which psychologist is known for the hierarchy of needs?",a:"Abraham Maslow",opts:["B.F. Skinner","Abraham Maslow","Carl Jung","John Watson"],exp:"Abraham Maslow created the Hierarchy of Needs pyramid in his 1943 paper 'A Theory of Human Motivation'."},
+    {q:"Nature vs nurture debate is about:",a:"Genetics vs environment in shaping behaviour",opts:["Good vs evil","Genetics vs environment in shaping behaviour","Conscious vs unconscious","Learning vs forgetting"],exp:"The nature vs nurture debate explores whether behaviour is shaped more by genetics (nature) or environment/experience (nurture)."},
+    {q:"Short-term memory can hold approximately:",a:"7 items (plus or minus 2)",opts:["3 items","7 items (plus or minus 2)","20 items","Unlimited items"],exp:"George Miller's research showed short-term memory holds about 7 items (±2), known as Miller's Law."},
+  ],
+  CYBER:[
+    {q:"What does CIA stand for in cybersecurity?",a:"Confidentiality, Integrity, Availability",opts:["Control, Intelligence, Access","Confidentiality, Integrity, Availability","Cyber, Infrastructure, Assets","Central, Integrated, Authority"],exp:"The CIA Triad is the foundation of cybersecurity: Confidentiality (private), Integrity (accurate), Availability (accessible)."},
+    {q:"What does SIEM stand for?",a:"Security Information and Event Management",opts:["System Intelligence and Error Management","Security Information and Event Management","Software Integration and Encryption Module","Secure Internet and Email Monitoring"],exp:"SIEM collects and analyses security event logs across an organisation to detect threats in real time."},
+    {q:"What type of attack is phishing?",a:"Social engineering",opts:["Physical attack","Malware injection","Social engineering","DDoS attack"],exp:"Phishing is a social engineering attack — using fake emails/websites to trick users into revealing credentials."},
+    {q:"How many phases does Incident Response have?",a:"6",opts:["3","4","5","6"],exp:"IR has 6 phases: Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned."},
+    {q:"What certification follows Google Cybersecurity in the SOC roadmap?",a:"TryHackMe SOC Level 1",opts:["CISSP","TryHackMe SOC Level 1","AWS Security","CISA"],exp:"After Google Cybersecurity Certificate, TryHackMe SOC Level 1 provides essential hands-on practical skills."},
+    {q:"Confidentiality in the CIA Triad means:",a:"Only authorised users can access information",opts:["Data is always available","Only authorised users can access information","Data cannot be changed","Systems are backed up"],exp:"Confidentiality ensures information is only accessible to those authorised to see it — preventing unauthorised disclosure."},
+    {q:"Integrity in the CIA Triad means:",a:"Data has not been altered or tampered with",opts:["Systems are always online","Data has not been altered or tampered with","Access is restricted","Passwords are complex"],exp:"Integrity ensures data is accurate, complete and has not been tampered with by unauthorised parties."},
+    {q:"Availability in the CIA Triad means:",a:"Systems and data are accessible when needed",opts:["Data is encrypted","Systems and data are accessible when needed","Only admins have access","Backups are taken daily"],exp:"Availability ensures systems and data are accessible to authorised users whenever they need them."},
+    {q:"A firewall is used to:",a:"Monitor and control incoming and outgoing network traffic",opts:["Store passwords","Monitor and control incoming and outgoing network traffic","Speed up internet","Print documents"],exp:"A firewall filters network traffic based on security rules, blocking unauthorised access to or from a network."},
+    {q:"What is malware?",a:"Malicious software designed to harm systems",opts:["A security update","Malicious software designed to harm systems","An antivirus tool","A backup system"],exp:"Malware (malicious software) includes viruses, ransomware, spyware and trojans designed to damage or gain unauthorised access."},
+    {q:"What is ransomware?",a:"Malware that encrypts files and demands payment",opts:["A type of firewall","Malware that encrypts files and demands payment","A network protocol","An email filter"],exp:"Ransomware encrypts a victim's files and demands a ransom payment (usually cryptocurrency) to restore access."},
+    {q:"Multi-factor authentication (MFA) uses:",a:"Two or more verification methods to confirm identity",opts:["Only a password","Two or more verification methods to confirm identity","A single fingerprint","An email only"],exp:"MFA requires two or more factors: something you know (password), have (phone), or are (fingerprint)."},
+    {q:"Log analysis in a SOC involves:",a:"Examining system logs to detect suspicious activity",opts:["Writing code","Examining system logs to detect suspicious activity","Installing software","Configuring hardware"],exp:"SOC analysts examine logs from systems, networks and applications to identify suspicious or malicious activity."},
+    {q:"CompTIA Security+ covers:",a:"Threats, cryptography, identity and risk management",opts:["Database administration","Threats, cryptography, identity and risk management","Web design","Project management"],exp:"Security+ is an industry-recognised cert covering network security, threats, cryptography, identity management and risk."},
+    {q:"Threat intelligence involves:",a:"Gathering information about current and potential threats",opts:["Guessing about attacks","Gathering information about current and potential threats","Installing antivirus","Backing up data"],exp:"Threat intelligence collects and analyses information about threat actors, their tools and methods to improve defences."},
+    {q:"A SOC analyst's primary role is:",a:"Monitoring and responding to security incidents",opts:["Building websites","Monitoring and responding to security incidents","Managing HR","Writing legal documents"],exp:"SOC (Security Operations Centre) analysts monitor systems 24/7, detect threats and respond to security incidents."},
+  ]
+};
+
+let selMod=null, qs=[], qi=0, sc=0, ans=false;
+function pickMod(btn,mod){
+  document.querySelectorAll('.mod-pick').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel'); selMod=mod;
+  document.getElementById('startBtn').disabled=false;
+}
+function startQuiz(){
+  let pool = selMod==='ALL' ? Object.values(QDB).flat() : (QDB[selMod]||[]);
+  qs = pool.sort(()=>Math.random()-0.5).slice(0,8);
+  qi=0; sc=0;
+  document.getElementById('qsetup').style.display='none';
+  document.getElementById('qplay').style.display='block';
+  renderQ();
+}
+function renderQ(){
+  if(qi>=qs.length){renderResult();return;}
+  ans=false;
+  const q=qs[qi], sh=[...q.opts].sort(()=>Math.random()-0.5);
+  document.getElementById('qplay').innerHTML=`
+    <div class="q-card">
+      <div class="q-prog">
+        <div class="prog-bar"><div class="prog-fill" style="width:${(qi/qs.length)*100}%"></div></div>
+        <div class="q-num">${qi+1} / ${qs.length}</div>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="opts">${sh.map(o=>`<button class="opt" onclick="pick(this,'${o.replace(/'/g,"\\'")}','${q.a.replace(/'/g,"\\'")}','${q.exp.replace(/'/g,"\\'")}')">${o}</button>`).join('')}</div>
+      <div id="fb"></div>
+    </div>`;
+}
+function pick(btn,chosen,correct,exp){
+  if(ans)return; ans=true;
+  const ok=chosen===correct; if(ok)sc++;
+  document.querySelectorAll('.opt').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent.trim()===correct) b.classList.add('correct');
+    else if(b===btn&&!ok) b.classList.add('wrong');
+  });
+  document.getElementById('fb').innerHTML=`
+    <div class="feedback">${ok?'✅ Correct! ':'❌ Incorrect. '}${exp}</div>
+    <button class="next-btn" onclick="nextQ()">${qi+1<qs.length?'Next Question →':'See Results →'}</button>`;
+}
+function nextQ(){qi++;renderQ();}
+function renderResult(){
+  const pct=Math.round((sc/qs.length)*100);
+  const msg=pct>=80?'🔥 Excellent! Exam ready!':pct>=60?'👍 Good! Keep revising':'📚 Keep studying — you will get there!';
+  document.getElementById('qplay').innerHTML=`
+    <div class="result-card">
+      <div style="font-size:3rem;margin-bottom:10px">${pct>=80?'🏆':pct>=60?'💪':'📚'}</div>
+      <div class="r-score">${sc}/${qs.length}</div>
+      <div class="r-msg">${msg}</div>
+      <div class="r-pct">${pct}%</div>
+      <button class="retry-btn" onclick="resetQ()">Try Again</button>
+    </div>`;
+}
+function resetQ(){
+  document.getElementById('qsetup').style.display='block';
+  document.getElementById('qplay').style.display='none';
+  selMod=null;
+  document.querySelectorAll('.mod-pick').forEach(b=>b.classList.remove('sel'));
+  document.getElementById('startBtn').disabled=true;
+}
+
+// ── FLASHCARDS ──
+const FCS=[
+  {q:"What is sustainable development?",a:"Meeting present needs without compromising future generations' ability to meet their own needs (Brundtland 1987)."},
+  {q:"What is the CIA Triad?",a:"Confidentiality + Integrity + Availability — the three core principles of information security."},
+  {q:"What is SIEM?",a:"Security Information and Event Management — collects and analyses security logs to detect threats in real time."},
+  {q:"What does PAJA stand for?",a:"Promotion of Administrative Justice Act — ensures fair, lawful and reasonable government administrative action."},
+  {q:"What is conscientisation?",a:"Paulo Freire's concept of developing critical awareness of social reality, leading to action for liberation."},
+  {q:"Name the 3 spheres of SA government.",a:"National, Provincial, and Local government — must cooperate under Chapter 3 of the Constitution."},
+  {q:"What is NHI?",a:"National Health Insurance — SA's plan for universal health coverage for all citizens regardless of income."},
+  {q:"What is gender mainstreaming?",a:"Integrating a gender equality perspective into all government policies, programmes and processes."},
+  {q:"What is 4IR?",a:"Fourth Industrial Revolution — transformation through AI, robotics, IoT and big data."},
+  {q:"What does HDI measure?",a:"Human Development Index: life expectancy, education level, and per capita income."},
+  {q:"Harvard in-text citation format?",a:"(Surname Year:page) — e.g. (Dlamini 2023:45). No URL, no full title."},
+  {q:"What is phishing?",a:"Social engineering attack using fake emails or websites to steal login credentials."},
+  {q:"What are Rostow's 5 stages?",a:"Traditional → Preconditions → Takeoff → Drive to Maturity → Mass Consumption."},
+  {q:"What does LAN stand for?",a:"Local Area Network — connects devices within a small area like an office or building."},
+  {q:"Incident Response 6 phases?",a:"Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned."},
+];
+let fci=0, fcFlip=false;
+function loadFC(){
+  fcFlip=false;
+  const fc=FCS[fci];
+  document.getElementById('fcQ').textContent=fc.q;
+  document.getElementById('fcA').textContent=fc.a;
+  document.getElementById('fcA').style.display='none';
+  document.getElementById('fcCount').textContent=`${fci+1}/${FCS.length}`;
+  const lbl=document.getElementById('fcLbl');
+  lbl.textContent=lang==='en'?'QUESTION':'UMBUZO';
+}
+function flipFC(){
+  fcFlip=!fcFlip;
+  document.getElementById('fcA').style.display=fcFlip?'block':'none';
+  document.getElementById('fcLbl').textContent=fcFlip?(lang==='en'?'ANSWER':'IMPENDULO'):(lang==='en'?'QUESTION':'UMBUZO');
+}
+function fcMove(d){fci=(fci+d+FCS.length)%FCS.length;loadFC();}
+loadFC();
+
+// ── AI TUTOR ──
+const chatArea=document.getElementById('chatArea');
+const chatInput=document.getElementById('chatInput');
+const sendBtn=document.getElementById('sendBtn');
+const typing=document.getElementById('typing');
+let busy=false;
+
+function now(){
+  const d=new Date();
+  return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+}
+
+function addMsg(text,role){
+  const d=document.createElement('div');
+  d.className=`msg ${role}`;
+  d.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-time">${role==='user'?'You':'Isifundisa AI'} · ${now()}</div>`;
+  chatArea.appendChild(d);
+  chatArea.scrollTop=chatArea.scrollHeight;
+}
+
+function sendQuick(text){chatInput.value=text;sendMsg();}
+
+async function sendMsg(){
+  const txt=chatInput.value.trim();
+  if(!txt||busy)return;
+  busy=true; sendBtn.disabled=true;
+  addMsg(txt,'user');
+  chatInput.value='';
+  typing.classList.add('show');
+  chatArea.scrollTop=chatArea.scrollHeight;
+
+  const systemPrompt=`You are Isifundisa AI Tutor, a friendly and encouraging study assistant built specifically for Nkanyezi Mhlongo, a first-year UNISA distance learning student in KwaZulu-Natal, South Africa.
+
+Nkanyezi is studying:
+- DVA1501: Development Studies I (sustainable development, modernisation theory, dependency theory, HDI, SDGs — EXAM 15 May)
+- DVA1502: Development Studies II (gender mainstreaming, 4IR, NHI, participatory development, Paulo Freire, conscientisation — EXAM 23 May)
+- PLC1502: Public Law & Legislation (SA Constitution 1996, Bill of Rights, separation of powers, PAJA, Section 195 — EXAM 1 July)
+- INF1505: Information Systems (hardware/software, networks LAN/WAN/MAN, databases, DBMS)
+- EUP1501: End-User Computing (Excel formulas, VLOOKUP, nested IF for Excel 2016, charts, absolute vs relative references)
+- IOP1501: Introduction to Psychology (Maslow hierarchy, classical conditioning, operant conditioning, Big Five personality)
+
+He is also pursuing a SOC Analyst career path: Google Cybersecurity Certificate → TryHackMe SOC Level 1 → CompTIA Security+ → BTL1 → CySA+ → Junior SOC Analyst → IT Governance in SA Government.
+
+Cybersecurity topics you help with: CIA Triad, SIEM, phishing, incident response (6 phases), log analysis, threat intelligence, network security, CompTIA Security+, TryHackMe.
+
+Harvard referencing (UNISA standard): in-text (Author Year:page), reference list alphabetical.
+
+IMPORTANT RULES:
+- Always be warm, encouraging and South African in tone. Address him as Nkanyezi occasionally.
+- Keep answers clear, concise and well-structured. Use bullet points or numbered lists when helpful.
+- For exam-related questions, be extra thorough and highlight key facts to memorise.
+- You can respond in English or isiZulu depending on what the student uses.
+- Never make up facts. If unsure, say so honestly.
+- Keep responses under 300 words unless a very detailed explanation is needed.`;
+
+  try {
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:systemPrompt,
+        messages:[{role:'user',content:txt}]
+      })
+    });
+    const data=await res.json();
+    typing.classList.remove('show');
+    const reply=data.content?.[0]?.text||"I'm sorry, I couldn't get a response. Please try again.";
+    addMsg(reply.replace(/\n/g,'<br>'),'bot');
+  } catch(e){
+    typing.classList.remove('show');
+    addMsg("⚠️ Connection issue. Please check your internet and try again.",'bot');
+  }
+  busy=false; sendBtn.disabled=false;
+}
+</script>
+</body>
+</html>
